@@ -2,6 +2,12 @@ server:
   port: 8089
   servlet:
     context-path: /error-handling
+  error:
+    whitelabel:
+      enabled: true
+    include-exception: true
+    include-stacktrace: never
+    include-message: always
 
 spring:
   datasource:

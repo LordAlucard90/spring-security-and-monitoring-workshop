@@ -6,5 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ErrorCode {
     RESOURCE_LOCKED,
     NOT_YET_AVAILABLE,
+    MISSING_DEPENDENCY,
     MALFORMED_USER_REQUEST;
 }
