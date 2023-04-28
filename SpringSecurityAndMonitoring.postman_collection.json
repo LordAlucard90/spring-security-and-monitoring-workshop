@@ -23,7 +23,7 @@
 									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
 									"    pm.expect(jsonData.status).to.eql(404);",
 									"    pm.expect(jsonData.error).to.eql(\"Not Found\");",
-									"    pm.expect(jsonData.path).to.eql(\"/error-handling/not-exists\");",
+									"    pm.expect(jsonData.path).to.eql(\"/error-handling/not-existing\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -55,7 +55,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
+									"pm.test(\"Status code is 501\", function () {",
 									"    pm.response.to.have.status(501);",
 									"});",
 									"pm.test(\"Response matches\", function () {",
@@ -90,13 +90,54 @@
 					"response": []
 				},
 				{
+					"name": "Response Status Exception",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 418\", function () {",
+									"    pm.response.to.have.status(418);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData.status).to.eql(418);",
+									"    pm.expect(jsonData.error).to.eql(\"I'm a teapot\");",
+									"    pm.expect(jsonData.path).to.eql(\"/error-handling/errors/teapot\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/teapot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"teapot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Controller Exception Handler",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
+									"pm.test(\"Status code is 423\", function () {",
 									"    pm.response.to.have.status(423);",
 									"});",
 									"pm.test(\"Response matches\", function () {",
@@ -135,8 +176,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(423);",
+									"pm.test(\"Status code is 425\", function () {",
+									"    pm.response.to.have.status(425);",
 									"});",
 									"pm.test(\"Response matches\", function () {",
 									"    var jsonData = pm.response.json();",
@@ -203,6 +244,45 @@
 								"error-handling",
 								"errors",
 								"not-supported"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Use Generic Exception",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 424\", function () {",
+									"    pm.response.to.have.status(424);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(\"MISSING_DEPENDENCY\");",
+									"    pm.expect(jsonData.error).to.eql(\"A required dependency is missing.\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/failed-dependency",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"failed-dependency"
 							]
 						}
 					},
