@@ -6,7 +6,6 @@ import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
 import ch.ti8m.academy.errorhandling.exception.CustomNotImplementedException;
 import ch.ti8m.academy.errorhandling.exception.CustomTooEarlyException;
 import ch.ti8m.academy.errorhandling.exception.GenericApiException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("errors")
-@RequiredArgsConstructor
 public class ErrorController {
     /*
         Exceptions annotated with @ResponseStatus
