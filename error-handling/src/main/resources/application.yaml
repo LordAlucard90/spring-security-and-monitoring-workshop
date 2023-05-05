@@ -22,7 +22,7 @@ spring:
 
   security:
     user:
-      name: admin
+      name: user
       password: password
 
 debug: true

@@ -16,7 +16,13 @@ spring:
 
   security:
     user:
-      name: admin
+      name: default
       password: password
 
 debug: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
