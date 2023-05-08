@@ -6,10 +6,8 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
@@ -17,6 +15,8 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 public class SecurityConfig {
     private final String[] whiteList = new String[]{
             "/messages/default/open",
+            "/h2",
+            "/h2/**",
     };
     private final String[] message = new String[]{
             "/messages/message",
@@ -30,6 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.httpBasic();
         http.csrf().disable();
+        http.headers().frameOptions().disable();
 
         http.authorizeRequests()
                 .expressionHandler(webSecurityExpressionHandler());
@@ -50,19 +51,19 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
-        var admin = User.withUsername("admin")
-                .password(encoder.encode("admin-password"))
-                .roles(ADMIN).build();
-        var staff = User.withUsername("staff")
-                .password(encoder.encode("staff-password"))
-                .roles(STAFF).build();
-        var user = User.withUsername("user")
-                .password(encoder.encode("user-password"))
-                .roles(USER).build();
-        return new InMemoryUserDetailsManager(admin, staff, user);
-    }
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
+//        var admin = User.withUsername("admin")
+//                .password(encoder.encode("admin-password"))
+//                .roles(ADMIN).build();
+//        var staff = User.withUsername("staff")
+//                .password(encoder.encode("staff-password"))
+//                .roles(STAFF).build();
+//        var user = User.withUsername("user")
+//                .password(encoder.encode("user-password"))
+//                .roles(USER).build();
+//        return new InMemoryUserDetailsManager(admin, staff, user);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

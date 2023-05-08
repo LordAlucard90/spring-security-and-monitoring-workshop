@@ -1,4 +1,4 @@
-package ch.ti8m.academy.security.basic.controller;
+package ch.ti8m.academy.security.basic.message;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
