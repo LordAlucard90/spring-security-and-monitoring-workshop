@@ -1,5 +1,6 @@
 package ch.ti8m.academy.security.basic.configuration;
 
+import ch.ti8m.academy.security.basic.user.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -41,10 +42,10 @@ public class SecurityConfig {
                 // role hierarchy definition
                 .expressionHandler(webSecurityExpressionHandler())
                 // role-protected endoints
-                .antMatchers(HttpMethod.DELETE, message).hasRole(ADMIN)
-                .antMatchers(HttpMethod.POST, message).hasRole(STAFF)
-                .antMatchers(HttpMethod.PUT, message).hasRole(STAFF)
-                .antMatchers(message).hasRole(USER)
+                .antMatchers(HttpMethod.DELETE, message).hasRole(UserRole.ADMIN.name())
+                .antMatchers(HttpMethod.POST, message).hasRole(UserRole.STAFF.name())
+                .antMatchers(HttpMethod.PUT, message).hasRole(UserRole.STAFF.name())
+                .antMatchers(message).hasRole(UserRole.USER.name())
                 // authentication-protected endpoints
                 .anyRequest().authenticated();
 
@@ -79,9 +80,9 @@ public class SecurityConfig {
 
     @Bean
     public RoleHierarchy roleHierarchy() {
-        var definition = "ROLE_ADMIN > ROLE_STAFF > ROLE_USER";
+//        var definition = "ROLE_ADMIN > ROLE_STAFF > ROLE_USER";
         var hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy(definition);
+        hierarchy.setHierarchy(UserRole.getHierarchyDefinition());
         return hierarchy;
     }
 }

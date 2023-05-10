@@ -2,10 +2,7 @@ package ch.ti8m.academy.security.basic.user;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity(name = "users")
@@ -17,4 +14,16 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    private boolean disabled;
+
+    @Transient
+    public String describe() {
+        return String.format(
+                "User(username=%s, role=%s, isDisable=%s)",
+                username,
+                role,
+                disabled
+        );
+    }
 }
