@@ -24,6 +24,8 @@ public class CustomErrorController extends BasicErrorController {
         var status = super.getStatus(request);
         var options = super.getErrorAttributeOptions(request, MediaType.APPLICATION_XML);
         var body = super.getErrorAttributes(request, options);
-        return new ResponseEntity<>(body, status);
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_XML)
+                .body(body);
     }
 }

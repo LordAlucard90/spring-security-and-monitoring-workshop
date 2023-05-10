@@ -14,35 +14,24 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("errors")
 public class ErrorController {
-    /*
-        Exceptions annotated with @ResponseStatus
-        test request -> Default Exception Error
-     */
+
     @GetMapping("not-implemented")
     public void notImplemented() {
         throw new CustomNotImplementedException();
     }
 
-    /*
-        Usign ResponseStatusException
-        test request -> Response Status Exception
-     */
     @GetMapping("teapot")
     public void teapot() {
         try {
             throw new IllegalArgumentException("Coffee");
         } catch (IllegalArgumentException exception) {
-            throw new ResponseStatusException( HttpStatus.I_AM_A_TEAPOT,
+            throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT,
                     "You cannot ask for coffee",
                     exception
             );
         }
     }
 
-    /*
-        Using @ExceptionHandler at the controller level
-        test request -> Controller Exception Handler
-     */
     @GetMapping("locked")
     public void locked() {
         throw new CustomLockedException();
@@ -50,9 +39,6 @@ public class ErrorController {
 
     @ResponseStatus(HttpStatus.LOCKED)
     @ExceptionHandler(CustomLockedException.class)
-//    public ErrorMessage handleLocked(CustomLockedException exception, HttpServletRequest request) {
-//    public ErrorMessage handleLocked(CustomLockedException exception) {
-//    public ErrorMessage handleLocked(HttpServletRequest request) {
     public ErrorMessage handleLocked() {
         return new ErrorMessage(
                 ErrorCode.RESOURCE_LOCKED,

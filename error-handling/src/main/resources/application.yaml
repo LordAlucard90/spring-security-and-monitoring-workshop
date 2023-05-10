@@ -5,8 +5,8 @@ server:
   error:
     whitelabel:
       enabled: true
-    include-exception: true
     include-stacktrace: never
+    include-exception: true
     include-message: always
 
 spring:
@@ -25,4 +25,4 @@ spring:
       name: user
       password: password
 
-debug: true
+#debug: true
