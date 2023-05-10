@@ -1,6 +1,6 @@
 package ch.ti8m.academy.security.basic.user;
 
-public enum UserRole {
+public enum UserRoles {
     ADMIN,
     STAFF,
     USER;

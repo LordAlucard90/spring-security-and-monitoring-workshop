@@ -13,7 +13,7 @@ public class UserEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRoles role;
 
     private boolean disabled;
 
