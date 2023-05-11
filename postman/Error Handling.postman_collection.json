@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "a1f0cd63-d205-4dc2-901d-d1d92e7ebb21",
+		"name": "Error Handling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exercise 1 - Error Message",
+			"item": [
+				{
+					"name": "Default Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData.status).to.eql(404);",
+									"    pm.expect(jsonData.error).to.eql(\"Not Found\");",
+									"    pm.expect(jsonData.path).to.eql(\"/error-handling/not-existing\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/not-existing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"not-existing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Default Exception Error",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 501\", function () {",
+									"    pm.response.to.have.status(501);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData.status).to.eql(501);",
+									"    pm.expect(jsonData.error).to.eql(\"Not Implemented\");",
+									"    pm.expect(jsonData.path).to.eql(\"/error-handling/errors/not-implemented\");",
+									"    pm.expect(jsonData).to.have.property(\"locale\");",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/not-implemented",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"not-implemented"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Extercise 2 - Exception Handler",
+			"item": [
+				{
+					"name": "Resopnse Status Exception",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 423\", function () {",
+									"    pm.response.to.have.status(423);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
+									"    pm.expect(jsonData.status).to.eql(423);",
+									"    pm.expect(jsonData.error).to.eql(\"Locked\");",
+									"    pm.expect(jsonData.path).to.eql(\"/error-handling/errors/locked\");",
+									"    pm.expect(jsonData).to.have.property(\"message\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/locked",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"locked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exception Handler",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 423\", function () {",
+									"    pm.response.to.have.status(423);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(\"RESOURCE_LOCKED\");",
+									"    pm.expect(jsonData.error).to.eql(\"The resource cannot be accesses\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/locked",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"locked"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Extercise 3 - Putting All Together",
+			"item": [
+				{
+					"name": "Generic Api Exception",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(\"NOTING_HERE\");",
+									"    pm.expect(jsonData.error).to.eql(\"These are not the droids you are looking for\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/droids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"droids"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Extercise 4 - Advanced",
+			"item": [
+				{
+					"name": "Generic Api Exception",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"pm.test(\"Response matches\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.code).to.eql(\"NOTING_HERE\");",
+									"    pm.expect(jsonData.error).to.eql(\"These are not the droids you are looking for\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/droids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"droids"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "user",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
