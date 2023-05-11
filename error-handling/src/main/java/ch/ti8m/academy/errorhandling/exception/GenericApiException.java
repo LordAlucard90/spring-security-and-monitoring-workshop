@@ -7,22 +7,24 @@ import lombok.Value;
 import lombok.With;
 import org.springframework.http.HttpStatus;
 
-    @Value @With @EqualsAndHashCode(callSuper = true)
-    public class GenericApiException extends RuntimeException {
-        HttpStatus status;
-        ErrorCode code;
-        String userMessage;
-        String internalMessage;
-        LogLevel logLevel;
+@Value
+@With
+@EqualsAndHashCode(callSuper = true)
+public class GenericApiException extends RuntimeException {
+    HttpStatus status;
+    ErrorCode code;
+    String userMessage;
+    String internalMessage;
+    LogLevel logLevel;
 
-        public static GenericApiException failedDependency() {
-            var message = "A required dependency is missing.";
-            return new GenericApiException(
-                    HttpStatus.FAILED_DEPENDENCY,
-                    ErrorCode.MISSING_DEPENDENCY,
-                    message,
-                    message,
-                    LogLevel.ERROR
-            );
-        }
+    public static GenericApiException notFound() {
+        var defaultMessage = "Nothing found.";
+        return new GenericApiException(
+                HttpStatus.NOT_FOUND,
+                ErrorCode.NOTING_HERE,
+                defaultMessage,
+                defaultMessage,
+                LogLevel.ERROR
+        );
     }
+}

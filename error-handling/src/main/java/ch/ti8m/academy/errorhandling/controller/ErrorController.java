@@ -2,6 +2,7 @@ package ch.ti8m.academy.errorhandling.controller;
 
 import ch.ti8m.academy.errorhandling.configuration.ErrorCode;
 import ch.ti8m.academy.errorhandling.configuration.ErrorMessage;
+import ch.ti8m.academy.errorhandling.configuration.LogLevel;
 import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
 import ch.ti8m.academy.errorhandling.exception.CustomNotImplementedException;
 import ch.ti8m.academy.errorhandling.exception.CustomTooEarlyException;
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("errors")
+@RequestMapping(
+        value = "errors",
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        consumes = MediaType.APPLICATION_JSON_VALUE
+)
 public class ErrorController {
 
     @GetMapping("not-implemented")
@@ -20,21 +25,28 @@ public class ErrorController {
         throw new CustomNotImplementedException();
     }
 
-    @GetMapping("teapot")
-    public void teapot() {
-        try {
-            throw new IllegalArgumentException("Coffee");
-        } catch (IllegalArgumentException exception) {
-            throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT,
-                    "You cannot ask for coffee",
-                    exception
-            );
-        }
-    }
+//    @GetMapping("teapot")
+//    public void teapot() {
+////        try {
+//            throw new IllegalArgumentException("Coffee");
+////        } catch (IllegalArgumentException exception) {
+////            throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT,
+////                    "You cannot ask for coffee",
+////                    exception
+////            );
+////        }
+//    }
 
     @GetMapping("locked")
     public void locked() {
-        throw new CustomLockedException();
+        try {
+            throw new CustomLockedException();
+        } catch (CustomLockedException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.LOCKED,
+                    "The resource cannot be accesses",
+                    e);
+        }
     }
 
     @ResponseStatus(HttpStatus.LOCKED)
@@ -64,15 +76,11 @@ public class ErrorController {
         throw new RuntimeException("This should not be reached.");
     }
 
-    /*
-        Using a custom exception in conbination with the ControllerAdvice
-        test request -> Use Generic Exception
-     */
-    @GetMapping(value = "failed-dependency")
-    public void failedDependency() {
-        var interalMessage = "No service associated that can handle the request";
-        throw GenericApiException
-                .failedDependency()
-                .withInternalMessage(interalMessage);
+    @GetMapping(value = "droids")
+    public void droids() {
+        throw GenericApiException.notFound()
+                .withLogLevel(LogLevel.WARN)
+                .withInternalMessage("Droids are safe")
+                .withUserMessage("These are not the droids you are looking for");
     }
 }
