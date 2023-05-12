@@ -170,7 +170,7 @@
 									"pm.test(\"Response matches\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData.code).to.eql(\"RESOURCE_LOCKED\");",
-									"    pm.expect(jsonData.error).to.eql(\"The resource cannot be accesses\");",
+									"    pm.expect(jsonData.error).to.eql(\"The resource cannot be accessed\");",
 									"});"
 								],
 								"type": "text/javascript"
