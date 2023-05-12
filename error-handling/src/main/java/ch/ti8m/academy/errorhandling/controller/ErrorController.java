@@ -17,13 +17,9 @@ public class ErrorController {
 
     @GetMapping("locked")
     public void locked() {
+        // TODO: sorround with a try-catch and return an ResponseStatusException with
+        //  - status code: LOCKED
+        //  - message: The resource cannot be accessed
         throw new CustomLockedException();
     }
-
-    // TODO: add a method annotated with @ExceptionHandler that
-    //  - handles CustomLockedException
-    //  - returns status code LOCKED
-    //  - returns an ErrorMessage with:
-    //      - code: RESOURCE_LOCKED
-    //      - message: The resource cannot be accessed
 }
