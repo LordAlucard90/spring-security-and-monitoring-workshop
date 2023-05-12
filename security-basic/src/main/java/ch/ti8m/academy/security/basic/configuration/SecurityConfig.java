@@ -2,6 +2,7 @@ package ch.ti8m.academy.security.basic.configuration;
 
 import ch.ti8m.academy.security.basic.user.UserRoles;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 @EnableWebSecurity
-// TODO: add desired security annoration support
 public class SecurityConfig {
     private final String[] whiteList = new String[]{
+            "/messages/default/open",
             "/h2",
             "/h2/**",
     };
@@ -32,12 +33,15 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 // open endponts
-                // TODO: just see: endpoints/resource defined on other parts of the code will need to be defined here
                 .antMatchers(whiteList).permitAll()
                 // role hierarchy definition
                 .expressionHandler(webSecurityExpressionHandler())
+                // role-protected endoints
+                .antMatchers(HttpMethod.DELETE, message).hasRole(UserRoles.ADMIN.name())
+                .antMatchers(HttpMethod.POST, message).hasRole(UserRoles.STAFF.name())
+                .antMatchers(HttpMethod.PUT, message).hasRole(UserRoles.STAFF.name())
+                .antMatchers(message).hasRole(UserRoles.USER.name())
                 // authentication-protected endpoints
-                // TODO: just see: as good practice the default behaviour is authenticated
                 .anyRequest().authenticated();
 
         return http.build();

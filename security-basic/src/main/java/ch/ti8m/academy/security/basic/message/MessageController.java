@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("messages")
 public class MessageController {
-    // TODO: open for anyone
     @GetMapping("default/open")
     public MessageDto open() {
         return new MessageDto("open to everyone");
@@ -34,27 +33,23 @@ public class MessageController {
         return new MessageDto("The user has the following roles: " + roles);
     }
 
-    // TODO: secure for ADMIN
     @DeleteMapping("message")
     public MessageDto deleteMessage() {
         return new MessageDto("This endpoint is accessible only to Admin.");
     }
 
-    // TODO: secure for STAFF
     @PostMapping("message")
     public MessageDto createMessage(@RequestBody MessageDto messageDto) {
         log.info("Creation message={}", messageDto.getMessage());
         return new MessageDto("This endpoint is accessible to Staff.");
     }
 
-    // TODO: secure for STAFF
     @PutMapping("message")
     public MessageDto updateMessage(@RequestBody MessageDto messageDto) {
         log.info("Update message={}", messageDto.getMessage());
         return new MessageDto("This endpoint is accessible to Staff.");
     }
 
-    // TODO: secure for USER
     @GetMapping("message")
     public MessageDto getMessage() {
         return new MessageDto("This endpoint is accessible to User.");
