@@ -57,10 +57,12 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
         var admin = User.withUsername("admin")
                 .password(encoder.encode("admin-password"))
-                .roles(ADMIN).build();
+                // TODO: simplify roles requirements
+                .roles(ADMIN, STAFF, USER).build();
         var staff = User.withUsername("staff")
                 .password(encoder.encode("staff-password"))
-                .roles(STAFF).build();
+                // TODO: simplify roles requirements
+                .roles(STAFF, USER).build();
         var user = User.withUsername("user")
                 .password(encoder.encode("user-password"))
                 .roles(USER).build();
@@ -81,7 +83,8 @@ public class SecurityConfig {
 
     @Bean
     public RoleHierarchy roleHierarchy() {
-        var definition = "ROLE_ADMIN > ROLE_STAFF > ROLE_USER";
+        // TODO: write roles definition ROLE_1 > ROLE_2 [> ROLE_N]
+        var definition = "";
         var hierarchy = new RoleHierarchyImpl();
         hierarchy.setHierarchy(definition);
         return hierarchy;
