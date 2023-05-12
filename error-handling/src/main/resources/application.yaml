@@ -7,9 +7,6 @@ server:
     whitelabel:
       enabled: true
     include-stacktrace: never
-    # TODO update the error configuration to :
-    #  - include the exception name
-    #  - include the reason message
 
 spring:
   datasource:

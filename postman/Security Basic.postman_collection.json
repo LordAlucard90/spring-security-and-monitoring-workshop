@@ -3069,7 +3069,7 @@
 					]
 				},
 				{
-					"name": "Authenticated - Can Access",
+					"name": "Open - Can Access Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -3123,7 +3123,7 @@
 					"response": []
 				},
 				{
-					"name": "Open - Can Access Copy",
+					"name": "Authenticated - Can Access",
 					"event": [
 						{
 							"listen": "test",

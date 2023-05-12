@@ -15,29 +15,17 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("messages")
 public class MessageController {
-    /*
-        Accessible to anyone
-        Exercise #1
-     */
     @PreAuthorize("permitAll()")
     @GetMapping("default/open")
     public MessageDto open() {
         return new MessageDto("open to everyone");
     }
 
-    /*
-        Accessible to any authenticated user
-        Exercise #2
-     */
     @GetMapping("default/authenticated")
     public MessageDto authenticated() {
         return new MessageDto("open to any authenticated user");
     }
 
-    /*
-        See roles configuration
-        Exercise #4
-     */
     @GetMapping("default/roles")
     public MessageDto roles() {
         var roles = SecurityContextHolder.getContext()
@@ -50,12 +38,6 @@ public class MessageController {
         return new MessageDto("The user has the following roles: " + roles);
     }
 
-    /*
-        Secure Endpoints With Roles
-        Exercise #4 part 2
-        Exercise #5
-        Exercise #6
-     */
     @PostAuthorize("hasRole('ADMIN')")
     @DeleteMapping("message")
     public MessageDto deleteMessage() {
