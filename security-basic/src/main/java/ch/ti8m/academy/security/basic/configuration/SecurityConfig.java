@@ -7,16 +7,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
 public class SecurityConfig {
-    private final String[] whiteList = new String[]{
-            "/messages/default/open",
-    };
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                // open endpoints
-                .antMatchers(whiteList).permitAll();
-
+        // TODO: open /default/open endpoint to anyone using a security configuration
         return http.build();
     }
 }
