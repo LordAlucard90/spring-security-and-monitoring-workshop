@@ -4,12 +4,9 @@ import ch.ti8m.academy.errorhandling.configuration.LogLevel;
 import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
 import ch.ti8m.academy.errorhandling.exception.CustomNotImplementedException;
 import ch.ti8m.academy.errorhandling.exception.GenericApiException;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("errors")
@@ -48,13 +45,5 @@ public class ErrorController {
                 .withLogLevel(LogLevel.WARN)
                 .withInternalMessage("Droids are safe")
                 .withUserMessage("These are not the droids you are looking for");
-    }
-
-    @GetMapping(
-            value = "advanced",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Map<String, String> advanced() {
-        return Map.of("mesasge", "hallo");
     }
 }

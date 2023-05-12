@@ -3,10 +3,8 @@ package ch.ti8m.academy.errorhandling.configuration;
 import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
 import ch.ti8m.academy.errorhandling.exception.GenericApiException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -69,14 +67,5 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
             default:
                 log.error(message);
         }
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex,
-                                                                      HttpHeaders headers,
-                                                                      HttpStatus status,
-                                                                      WebRequest request) {
-        var errorMessage = new ErrorMessage(ErrorCode.MALFORMED_USER_REQUEST, "Not Supported");
-        return ResponseEntity.status(status).body(errorMessage);
     }
 }
