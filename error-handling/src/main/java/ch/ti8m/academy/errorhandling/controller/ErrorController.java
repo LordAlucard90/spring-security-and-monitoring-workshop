@@ -28,19 +28,10 @@ public class ErrorController {
 //        } catch (CustomLockedException e) {
 //            throw new ResponseStatusException(
 //                    HttpStatus.LOCKED,
-//                    "The resource cannot be accesses",
+//                    "The resource cannot be accessed",
 //                    e);
 //        }
     }
-
-//    @ResponseStatus(HttpStatus.LOCKED)
-//    @ExceptionHandler(CustomLockedException.class)
-//    public ErrorMessage handleLocked() {
-//        return new ErrorMessage(
-//                ErrorCode.RESOURCE_LOCKED,
-//                "The resource cannot be accesses"
-//        );
-//    }
 
     @GetMapping("droids")
     public void droids() {
