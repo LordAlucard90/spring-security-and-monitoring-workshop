@@ -14,9 +14,6 @@ public class SecurityConfig {
     private final String[] whiteList = new String[]{
             "/messages/default/open",
     };
-    private final String[] message = new String[]{
-            "/messages/message",
-    };
     private final String ADMIN = "ADMIN";
     private final String STAFF = "STAFF";
     private final String USER = "USER";
@@ -27,13 +24,13 @@ public class SecurityConfig {
         http.httpBasic();
         http.csrf().disable();
 
-        // TODO: secure the endpointa with these roles
+        // TODO: secure the endpoints with these roles
         //   DELETE /message: ADMIN
         //   POST   /message: STAFF
         //   PUT    /message: STAFF
         //   GET    /message: USER
         http.authorizeRequests()
-                // open endponts
+                // open endpoints
                 .antMatchers(whiteList).permitAll()
                 // authentication-protected endpoints
                 .anyRequest().authenticated();
