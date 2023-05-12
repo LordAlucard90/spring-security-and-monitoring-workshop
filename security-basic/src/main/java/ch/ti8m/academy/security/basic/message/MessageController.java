@@ -14,7 +14,6 @@ public class MessageController {
         return new MessageDto("open to everyone");
     }
 
-    // TODO: 12.05.23 verify users can access
     @GetMapping("default/authenticated")
     public MessageDto authenticated() {
         return new MessageDto("open to any authenticated user");
