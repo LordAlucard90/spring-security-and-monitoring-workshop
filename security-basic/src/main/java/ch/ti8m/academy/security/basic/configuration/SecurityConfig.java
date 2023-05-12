@@ -13,8 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     private final String[] whiteList = new String[]{
             "/messages/default/open",
-            "/h2",
-            "/h2/**",
     };
     private final String[] message = new String[]{
             "/messages/message",
@@ -29,11 +27,6 @@ public class SecurityConfig {
         http.httpBasic();
         http.csrf().disable();
 
-        // TODO: secure the endpointa with these roles
-        //   DELETE /message: ADMIN
-        //   POST   /message: STAFF
-        //   PUT    /message: STAFF
-        //   GET    /message: USER
         http.authorizeRequests()
                 // open endponts
                 .antMatchers(whiteList).permitAll()
@@ -47,14 +40,11 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
         var admin = User.withUsername("admin")
                 .password(encoder.encode("admin-password"))
-                .roles(ADMIN, STAFF, USER).build();
-        var staff = User.withUsername("staff")
-                .password(encoder.encode("staff-password"))
-                .roles(STAFF, USER).build();
+                .build();
         var user = User.withUsername("user")
                 .password(encoder.encode("user-password"))
-                .roles(USER).build();
-        return new InMemoryUserDetailsManager(admin, staff, user);
+                .build();
+        return new InMemoryUserDetailsManager(admin, user);
     }
 
     @Bean
