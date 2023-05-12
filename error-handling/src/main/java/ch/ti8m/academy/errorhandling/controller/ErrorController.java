@@ -1,10 +1,11 @@
 package ch.ti8m.academy.errorhandling.controller;
 
+import ch.ti8m.academy.errorhandling.configuration.ErrorCode;
+import ch.ti8m.academy.errorhandling.configuration.ErrorMessage;
 import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
 import ch.ti8m.academy.errorhandling.exception.CustomNotImplementedException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("errors")
@@ -28,13 +29,12 @@ public class ErrorController {
 //        }
     }
 
-    @GetMapping("droids")
-    public void droids() {
-        // TODO: throw a GenericApiException
-        //    Status code: NOT_FOUND
-        //    Logged message: Droids are safe
-        //    Logging Level: WARNING
-        //    Response Message: "These are not the droids you are looking for"
-        //    Response Code: NOTING_HERE
+    @ResponseStatus(HttpStatus.LOCKED)
+    @ExceptionHandler(CustomLockedException.class)
+    public ErrorMessage handleLocked() {
+        return new ErrorMessage(
+                ErrorCode.RESOURCE_LOCKED,
+                "The resource cannot be accesses"
+        );
     }
 }
