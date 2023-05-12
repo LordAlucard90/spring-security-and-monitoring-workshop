@@ -23,7 +23,7 @@ public class ErrorController {
 //        } catch (CustomLockedException e) {
 //            throw new ResponseStatusException(
 //                    HttpStatus.LOCKED,
-//                    "The resource cannot be accesses",
+//                    "The resource cannot be accessed",
 //                    e);
 //        }
     }

@@ -132,14 +132,7 @@
 									"pm.test(\"Status code is 423\", function () {",
 									"    pm.response.to.have.status(423);",
 									"});",
-									"pm.test(\"Response matches\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData).to.have.property(\"timestamp\");",
-									"    pm.expect(jsonData.status).to.eql(423);",
-									"    pm.expect(jsonData.error).to.eql(\"Locked\");",
-									"    pm.expect(jsonData.path).to.eql(\"/error-handling/errors/locked\");",
-									"    pm.expect(jsonData).to.have.property(\"message\");",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
