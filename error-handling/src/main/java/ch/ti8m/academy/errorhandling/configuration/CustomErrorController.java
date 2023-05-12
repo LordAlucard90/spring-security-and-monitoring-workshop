@@ -22,8 +22,6 @@ public class CustomErrorController extends BasicErrorController {
     public ResponseEntity<Map<String, Object>> xmlError(HttpServletRequest request) {
         var options = super.getErrorAttributeOptions(request, MediaType.APPLICATION_XML);
         var body = super.getErrorAttributes(request, options);
-        return ResponseEntity.status(super.getStatus(request))
-                .contentType(MediaType.APPLICATION_XML)
-                .body(body);
+        return ResponseEntity.status(super.getStatus(request)).body(body);
     }
 }
