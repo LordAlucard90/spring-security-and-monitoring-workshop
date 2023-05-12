@@ -9,7 +9,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // TODO: open /default/open endpoint to anyone using a security configuration
         return http.build();
     }
 }
