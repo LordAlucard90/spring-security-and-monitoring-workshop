@@ -2,7 +2,6 @@ package ch.ti8m.academy.security.basic.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,12 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDetails generateUserDetails(UserEntity userEntity) {
         log.info("Generating details for: " + userEntity.describe());
 
-        return User.builder()
-                .username(userEntity.getUsername())
-                .password(userEntity.getPassword())
-                .roles(userEntity.getRole().name())
-                // or .authorities(userEntity.getRole().getAuthority())
-                .disabled(userEntity.isDisabled())
-                .build();
+        // TODO: provide a consinstent UserDetails from the UserEntity
+        return null;
     }
 }
