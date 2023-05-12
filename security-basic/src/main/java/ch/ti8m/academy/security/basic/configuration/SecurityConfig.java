@@ -30,10 +30,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.httpBasic();
         http.csrf().disable();
-        http.headers().frameOptions().disable();
-
-        http.authorizeRequests()
-                .expressionHandler(webSecurityExpressionHandler());
 
         http.authorizeRequests()
                 // open endponts
