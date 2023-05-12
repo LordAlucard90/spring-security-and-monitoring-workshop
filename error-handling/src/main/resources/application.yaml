@@ -1,0 +1,27 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /error-handling
+
+  error:
+    whitelabel:
+      enabled: true
+    include-stacktrace: never
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:error-handling
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false
+
+  security:
+    user:
+      name: user
+      password: password
