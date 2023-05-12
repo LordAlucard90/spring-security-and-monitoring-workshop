@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("messages")
 public class MessageController {
+    // TODO: this endpoint must remain open
     @GetMapping("default/open")
     public MessageDto open() {
         return new MessageDto("open to everyone");
     }
 
+    // TODO: this endpoint must be closed to authenticated userss
     @GetMapping("default/authenticated")
     public MessageDto authenticated() {
         return new MessageDto("open to any authenticated user");

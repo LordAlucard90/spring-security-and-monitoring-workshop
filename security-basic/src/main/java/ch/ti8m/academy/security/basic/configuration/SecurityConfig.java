@@ -13,14 +13,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.httpBasic();
-        http.csrf().disable();
+        // TODO: use basic authentication
 
+        // TODO: require requests to be authenticated
         http.authorizeRequests()
                 // open endpoints
-                .antMatchers(whiteList).permitAll()
-                // authentication-protected endpoints
-                .anyRequest().authenticated();
+                .antMatchers(whiteList).permitAll();
 
         return http.build();
     }

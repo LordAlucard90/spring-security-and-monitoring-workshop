@@ -19,10 +19,9 @@ spring:
   flyway:
     enabled: false
 
-  security:
-    user:
-      name: default
-      password: password
+  # TODO customize default user
+  #  username: default
+  #  password: password
 
 #logging:
 #  level:
