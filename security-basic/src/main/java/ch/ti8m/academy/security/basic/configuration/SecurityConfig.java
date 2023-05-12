@@ -3,7 +3,6 @@ package ch.ti8m.academy.security.basic.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -38,13 +37,10 @@ public class SecurityConfig {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
-        var admin = User.withUsername("admin")
-                .password(encoder.encode("admin-password"))
-                .build();
-        var user = User.withUsername("user")
-                .password(encoder.encode("user-password"))
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);
+        // TODO: add users
+        //   admin, password: admin-password
+        //   user,  password: user-password
+        return new InMemoryUserDetailsManager();
     }
 
     @Bean
