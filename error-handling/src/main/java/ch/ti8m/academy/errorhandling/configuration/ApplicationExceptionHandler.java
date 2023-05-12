@@ -1,6 +1,6 @@
 package ch.ti8m.academy.errorhandling.configuration;
 
-import ch.ti8m.academy.errorhandling.exception.CustomTooEarlyException;
+import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
 import ch.ti8m.academy.errorhandling.exception.GenericApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -19,11 +19,14 @@ import javax.validation.ValidationException;
 @Slf4j
 @RestControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
-    @ResponseStatus(HttpStatus.TOO_EARLY)
-    @ExceptionHandler(CustomTooEarlyException.class)
-    // todo: 11.05.23 delete
-    public ErrorMessage handleCustomTooEarlyException(CustomTooEarlyException exception) {
-        return new ErrorMessage(ErrorCode.NOT_YET_AVAILABLE, exception.getMessage());
+
+    @ResponseStatus(HttpStatus.LOCKED)
+    @ExceptionHandler(CustomLockedException.class)
+    public ErrorMessage handleLocked() {
+        return new ErrorMessage(
+                ErrorCode.RESOURCE_LOCKED,
+                "The resource cannot be accesses"
+        );
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -74,6 +77,6 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
                                                                       HttpStatus status,
                                                                       WebRequest request) {
         var errorMessage = new ErrorMessage(ErrorCode.MALFORMED_USER_REQUEST, "Not Supported");
-        return new ResponseEntity<>(errorMessage, status);
+        return ResponseEntity.status(status).body(errorMessage);
     }
 }

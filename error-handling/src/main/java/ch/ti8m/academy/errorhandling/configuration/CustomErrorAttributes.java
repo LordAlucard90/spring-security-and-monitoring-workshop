@@ -14,7 +14,6 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
                                                   ErrorAttributeOptions options) {
         var errorAttributesMap = super.getErrorAttributes(webRequest, options);
         errorAttributesMap.put("locale", webRequest.getLocale());
-        //  errorAttributesMap.remove("status");
         return errorAttributesMap;
     }
 }

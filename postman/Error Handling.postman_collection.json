@@ -253,7 +253,7 @@
 			"name": "Extercise 4 - Advanced",
 			"item": [
 				{
-					"name": "Generic Api Exception",
+					"name": "Not Found Json",
 					"event": [
 						{
 							"listen": "test",
@@ -262,11 +262,81 @@
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
 									"});",
-									"pm.test(\"Response matches\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.code).to.eql(\"NOTING_HERE\");",
-									"    pm.expect(jsonData.error).to.eql(\"These are not the droids you are looking for\");",
-									"});"
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/not-existing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"not-existing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Not Found XML",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/not-existing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"not-existing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generic Api Exception Json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -286,6 +356,123 @@
 								"error-handling",
 								"errors",
 								"droids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generic Api Exception Xml",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/droids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"droids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supported",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/advanced",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"advanced"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mpt Supported",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 408\", function () {",
+									"    pm.response.to.have.status(408);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8089/error-handling/errors/advanced",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"error-handling",
+								"errors",
+								"advanced"
 							]
 						}
 					},

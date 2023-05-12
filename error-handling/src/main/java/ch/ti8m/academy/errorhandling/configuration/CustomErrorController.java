@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 
-    @Component
-    public class CustomErrorController extends BasicErrorController {
-        public CustomErrorController(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
-            super(errorAttributes, serverProperties.getError());
-        }
-        @RequestMapping(produces = MediaType.APPLICATION_XML_VALUE)
-        public ResponseEntity<Map<String, Object>> xmlError(HttpServletRequest request) {
-            var options = super.getErrorAttributeOptions(request, MediaType.APPLICATION_XML);
-            var body = super.getErrorAttributes(request, options);
-            return ResponseEntity.status(super.getStatus(request))
-                    .contentType(MediaType.APPLICATION_XML)
-                    .body(body);
-        }
+@Component
+public class CustomErrorController extends BasicErrorController {
+    public CustomErrorController(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
+        super(errorAttributes, serverProperties.getError());
     }
+
+    @RequestMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Map<String, Object>> xmlError(HttpServletRequest request) {
+        var options = super.getErrorAttributeOptions(request, MediaType.APPLICATION_XML);
+        var body = super.getErrorAttributes(request, options);
+        return ResponseEntity.status(super.getStatus(request))
+                .contentType(MediaType.APPLICATION_XML)
+                .body(body);
+    }
+}
