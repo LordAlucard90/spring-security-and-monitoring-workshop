@@ -19,11 +19,6 @@ spring:
   flyway:
     enabled: false
 
-  security:
-    user:
-      name: default
-      password: password
-
 #logging:
 #  level:
 #    org:

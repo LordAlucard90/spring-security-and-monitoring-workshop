@@ -13,14 +13,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.httpBasic();
-        http.csrf().disable();
-
         http.authorizeRequests()
                 // open endpoints
-                .antMatchers(whiteList).permitAll()
-                // authentication-protected endpoints
-                .anyRequest().authenticated();
+                .antMatchers(whiteList).permitAll();
 
         return http.build();
     }

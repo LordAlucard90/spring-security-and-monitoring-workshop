@@ -13,9 +13,4 @@ public class MessageController {
     public MessageDto open() {
         return new MessageDto("open to everyone");
     }
-
-    @GetMapping("default/authenticated")
-    public MessageDto authenticated() {
-        return new MessageDto("open to any authenticated user");
-    }
 }
