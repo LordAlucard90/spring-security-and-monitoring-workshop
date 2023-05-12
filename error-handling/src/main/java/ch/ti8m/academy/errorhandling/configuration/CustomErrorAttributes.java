@@ -13,7 +13,7 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     public Map<String, Object> getErrorAttributes(WebRequest webRequest,
                                                   ErrorAttributeOptions options) {
         var errorAttributesMap = super.getErrorAttributes(webRequest, options);
-        errorAttributesMap.put("locale", webRequest.getLocale());
+        // TODO: add locale info to error attributes (it can be retrieced from the reqeust)
         return errorAttributesMap;
     }
 }
