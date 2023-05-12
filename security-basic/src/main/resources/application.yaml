@@ -16,28 +16,8 @@ spring:
     password: password
     driverClassName: org.h2.Driver
 
-  h2:
-    console:
-      path: /h2
-      settings.trace: false
-      settings.web-allow-others: true
-      enabled: true # http://localhost:8082/security-basic/h2/
-
   flyway:
-    enabled: true
-
-  security:
-    user:
-      name: default
-      password: password
-
-flyway:
-  user: ${spring.datasource.username}
-  password: ${spring.datasource.password}
-  url: ${spring.datasource.url}
-  schemas: PUBLIC
-  location: classpath:db/migration
-  validate-on-migrate: true
+    enabled: false
 
 #logging:
 #  level:
