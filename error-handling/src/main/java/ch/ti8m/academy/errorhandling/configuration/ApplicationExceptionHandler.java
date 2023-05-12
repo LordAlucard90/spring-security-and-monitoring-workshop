@@ -18,7 +18,7 @@ public class ApplicationExceptionHandler {
     public ErrorMessage handleLocked() {
         return new ErrorMessage(
                 ErrorCode.RESOURCE_LOCKED,
-                "The resource cannot be accesses"
+                "The resource cannot be accessed"
         );
     }
 
