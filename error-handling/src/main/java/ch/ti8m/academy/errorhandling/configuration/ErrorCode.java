@@ -6,6 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public enum ErrorCode {
     RESOURCE_LOCKED,
     MALFORMED_USER_REQUEST,
-    EXECUTION_REQUEST,
+    EXECUTION_ERROR,
     NOTING_HERE,
 }

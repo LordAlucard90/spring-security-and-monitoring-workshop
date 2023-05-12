@@ -40,7 +40,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     @ExceptionHandler(PersistenceException.class)
     public ErrorMessage handlePersistenceException(PersistenceException ex, WebRequest request) {
         logError(request, ex.getMessage(), LogLevel.ERROR);
-        return new ErrorMessage(ErrorCode.EXECUTION_REQUEST, "Unable to finalyze request.");
+        return new ErrorMessage(ErrorCode.EXECUTION_ERROR, "Unable to finalize request.");
     }
 
 
