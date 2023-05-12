@@ -17,8 +17,6 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 public class SecurityConfig {
     private final String[] whiteList = new String[]{
             "/messages/default/open",
-            "/h2",
-            "/h2/**",
     };
     private final String[] message = new String[]{
             "/messages/message",
