@@ -1,10 +1,8 @@
 package ch.ti8m.academy.errorhandling.configuration;
 
 import ch.ti8m.academy.errorhandling.exception.CustomLockedException;
-import ch.ti8m.academy.errorhandling.exception.GenericApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,13 +40,10 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
 
-    @ExceptionHandler(GenericApiException.class)
-    public ResponseEntity<ErrorMessage> handleGenericApiException(GenericApiException exception,
-                                                                  WebRequest request) {
-        logError(request, exception.getInternalMessage(), exception.getLogLevel());
-        var errorMessage = new ErrorMessage(exception.getCode(), exception.getUserMessage());
-        return new ResponseEntity<>(errorMessage, exception.getStatus());
-    }
+    // TODO: add an @ExceptionHandler that manages GenericApiException  and
+    //  - returns an ErrorMessage with the define message and error code
+    //  - returns the defined status code
+    //  - logs the correct message with defined log level
 
     private void logError(WebRequest request, String internalMessage, LogLevel logLevel) {
         var message = String.format(
