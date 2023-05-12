@@ -32,11 +32,11 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-                // open endponts
+                // open endpoints
                 .antMatchers(whiteList).permitAll()
                 // role hierarchy definition
                 .expressionHandler(webSecurityExpressionHandler())
-                // role-protected endoints
+                // role-protected endpoints
                 .antMatchers(HttpMethod.DELETE, message).hasRole(ADMIN)
                 .antMatchers(HttpMethod.POST, message).hasRole(STAFF)
                 .antMatchers(HttpMethod.PUT, message).hasRole(STAFF)
