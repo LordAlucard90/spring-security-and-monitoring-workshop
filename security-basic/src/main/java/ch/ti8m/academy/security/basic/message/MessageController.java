@@ -3,7 +3,9 @@ package ch.ti8m.academy.security.basic.message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.stream.Collectors;
 
@@ -21,6 +23,7 @@ public class MessageController {
         return new MessageDto("open to any authenticated user");
     }
 
+    // TODO: verify roles configuration for different users
     @GetMapping("default/roles")
     public MessageDto roles() {
         var roles = SecurityContextHolder.getContext()
@@ -31,27 +34,5 @@ public class MessageController {
                 .collect(Collectors.toList());
 
         return new MessageDto("The user has the following roles: " + roles);
-    }
-
-    @DeleteMapping("message")
-    public MessageDto deleteMessage() {
-        return new MessageDto("This endpoint is accessible only to Admin.");
-    }
-
-    @PostMapping("message")
-    public MessageDto createMessage(@RequestBody MessageDto messageDto) {
-        log.info("Creation message={}", messageDto.getMessage());
-        return new MessageDto("This endpoint is accessible to Staff.");
-    }
-
-    @PutMapping("message")
-    public MessageDto updateMessage(@RequestBody MessageDto messageDto) {
-        log.info("Update message={}", messageDto.getMessage());
-        return new MessageDto("This endpoint is accessible to Staff.");
-    }
-
-    @GetMapping("message")
-    public MessageDto getMessage() {
-        return new MessageDto("This endpoint is accessible to User.");
     }
 }

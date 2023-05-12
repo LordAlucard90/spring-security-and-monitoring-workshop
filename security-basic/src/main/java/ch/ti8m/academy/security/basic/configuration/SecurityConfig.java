@@ -1,9 +1,6 @@
 package ch.ti8m.academy.security.basic.configuration;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -11,7 +8,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 @EnableWebSecurity
 public class SecurityConfig {
@@ -32,21 +28,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.httpBasic();
         http.csrf().disable();
-        http.headers().frameOptions().disable();
 
-        http.authorizeRequests()
-                .expressionHandler(webSecurityExpressionHandler());
-
+        // TODO: secure the endpointa with these roles
+        //   DELETE /message: ADMIN
+        //   POST   /message: STAFF
+        //   PUT    /message: STAFF
+        //   GET    /message: USER
         http.authorizeRequests()
                 // open endponts
                 .antMatchers(whiteList).permitAll()
-                // role hierarchy definition
-                .expressionHandler(webSecurityExpressionHandler())
-                // role-protected endoints
-                .antMatchers(HttpMethod.DELETE, message).hasRole(ADMIN)
-                .antMatchers(HttpMethod.POST, message).hasRole(STAFF)
-                .antMatchers(HttpMethod.PUT, message).hasRole(STAFF)
-                .antMatchers(message).hasRole(USER)
                 // authentication-protected endpoints
                 .anyRequest().authenticated();
 
@@ -57,11 +47,9 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
         var admin = User.withUsername("admin")
                 .password(encoder.encode("admin-password"))
-                // TODO: simplify roles requirements
                 .roles(ADMIN, STAFF, USER).build();
         var staff = User.withUsername("staff")
                 .password(encoder.encode("staff-password"))
-                // TODO: simplify roles requirements
                 .roles(STAFF, USER).build();
         var user = User.withUsername("user")
                 .password(encoder.encode("user-password"))
@@ -72,21 +60,5 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-    @Bean
-    public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
-        var expressionHandler = new DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy());
-        return expressionHandler;
-    }
-
-    @Bean
-    public RoleHierarchy roleHierarchy() {
-        // TODO: write roles definition ROLE_1 > ROLE_2 [> ROLE_N]
-        var definition = "";
-        var hierarchy = new RoleHierarchyImpl();
-        hierarchy.setHierarchy(definition);
-        return hierarchy;
     }
 }
