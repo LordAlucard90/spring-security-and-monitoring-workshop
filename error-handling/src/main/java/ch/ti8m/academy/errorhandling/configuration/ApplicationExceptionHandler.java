@@ -7,14 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import javax.persistence.PersistenceException;
-import javax.validation.ValidationException;
 
 @Slf4j
 @RestControllerAdvice
-public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
+public class ApplicationExceptionHandler {
 
     @ResponseStatus(HttpStatus.LOCKED)
     @ExceptionHandler(CustomLockedException.class)
@@ -24,21 +20,6 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
                 "The resource cannot be accesses"
         );
     }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ValidationException.class)
-    public ErrorMessage handleValidationException(ValidationException ex, WebRequest request) {
-        logError(request, ex.getMessage(), LogLevel.ERROR);
-        return new ErrorMessage(ErrorCode.MALFORMED_USER_REQUEST, "Not valid request,");
-    }
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(PersistenceException.class)
-    public ErrorMessage handlePersistenceException(PersistenceException ex, WebRequest request) {
-        logError(request, ex.getMessage(), LogLevel.ERROR);
-        return new ErrorMessage(ErrorCode.EXECUTION_REQUEST, "Unable to finalyze request.");
-    }
-
 
     // TODO: add an @ExceptionHandler that manages GenericApiException  and
     //  - returns an ErrorMessage with the define message and error code
