@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserDetails generateUserDetails(UserEntity userEntity) {
         log.info("Generating details for: " + userEntity.describe());
 
-        // TODO: provide a consinstent UserDetails from the UserEntity
+        // TODO: provide a consistent UserDetails from the UserEntity
         return null;
     }
 }
