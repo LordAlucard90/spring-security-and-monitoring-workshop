@@ -30,15 +30,6 @@ public class ErrorController {
 //        }
     }
 
-//    @ResponseStatus(HttpStatus.LOCKED)
-//    @ExceptionHandler(CustomLockedException.class)
-//    public ErrorMessage handleLocked() {
-//        return new ErrorMessage(
-//                ErrorCode.RESOURCE_LOCKED,
-//                "The resource cannot be accesses"
-//        );
-//    }
-
     @GetMapping("droids")
     public void droids() {
         throw GenericApiException.notFound()
