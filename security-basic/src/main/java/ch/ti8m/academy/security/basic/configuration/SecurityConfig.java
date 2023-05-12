@@ -13,12 +13,6 @@ public class SecurityConfig {
     private final String[] whiteList = new String[]{
             "/messages/default/open",
     };
-    private final String[] message = new String[]{
-            "/messages/message",
-    };
-    private final String ADMIN = "ADMIN";
-    private final String STAFF = "STAFF";
-    private final String USER = "USER";
 
 
     @Bean
@@ -27,7 +21,7 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-                // open endponts
+                // open endpoints
                 .antMatchers(whiteList).permitAll()
                 // authentication-protected endpoints
                 .anyRequest().authenticated();
