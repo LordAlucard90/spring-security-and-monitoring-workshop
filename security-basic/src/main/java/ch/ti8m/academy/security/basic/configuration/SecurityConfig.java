@@ -24,11 +24,6 @@ public class SecurityConfig {
         http.httpBasic();
         http.csrf().disable();
 
-        // TODO: secure the endpoints with these roles
-        //   DELETE /message: ADMIN
-        //   POST   /message: STAFF
-        //   PUT    /message: STAFF
-        //   GET    /message: USER
         http.authorizeRequests()
                 // open endpoints
                 .antMatchers(whiteList).permitAll()
@@ -40,15 +35,19 @@ public class SecurityConfig {
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder encoder) {
+        // TODO: add roles to users
+        //  admin: ADMIN, STAFF, USER
+        //  staff: STAFF, USER
+        //  user:  USER
         var admin = User.withUsername("admin")
                 .password(encoder.encode("admin-password"))
-                .roles(ADMIN, STAFF, USER).build();
+                .build();
         var staff = User.withUsername("staff")
                 .password(encoder.encode("staff-password"))
-                .roles(STAFF, USER).build();
+                .build();
         var user = User.withUsername("user")
                 .password(encoder.encode("user-password"))
-                .roles(USER).build();
+                .build();
         return new InMemoryUserDetailsManager(admin, staff, user);
     }
 
