@@ -4,18 +4,13 @@ import ch.ti8m.academy.security.basic.user.UserRoles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        securedEnabled = true,
-        jsr250Enabled = true
-)
+// TODO: add desired security annoration support
 public class SecurityConfig {
     private final String[] whiteList = new String[]{
             "/h2",
@@ -37,10 +32,12 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 // open endponts
+                // TODO: just see: endpoints/resource defined on other parts of the code will need to be defined here
                 .antMatchers(whiteList).permitAll()
                 // role hierarchy definition
                 .expressionHandler(webSecurityExpressionHandler())
                 // authentication-protected endpoints
+                // TODO: just see: as good practice the default behaviour is authenticated
                 .anyRequest().authenticated();
 
         return http.build();

@@ -1,21 +1,17 @@
 package ch.ti8m.academy.security.basic.message;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
 @RequestMapping("messages")
 public class MessageController {
-    @PreAuthorize("permitAll()")
+    // TODO: open for anyone
     @GetMapping("default/open")
     public MessageDto open() {
         return new MessageDto("open to everyone");
@@ -38,27 +34,27 @@ public class MessageController {
         return new MessageDto("The user has the following roles: " + roles);
     }
 
-    @PostAuthorize("hasRole('ADMIN')")
+    // TODO: secure for ADMIN
     @DeleteMapping("message")
     public MessageDto deleteMessage() {
         return new MessageDto("This endpoint is accessible only to Admin.");
     }
 
-    @Secured("ROLE_STAFF")
+    // TODO: secure for STAFF
     @PostMapping("message")
     public MessageDto createMessage(@RequestBody MessageDto messageDto) {
         log.info("Creation message={}", messageDto.getMessage());
         return new MessageDto("This endpoint is accessible to Staff.");
     }
 
-    @RolesAllowed("ROLE_STAFF")
+    // TODO: secure for STAFF
     @PutMapping("message")
     public MessageDto updateMessage(@RequestBody MessageDto messageDto) {
         log.info("Update message={}", messageDto.getMessage());
         return new MessageDto("This endpoint is accessible to Staff.");
     }
 
-    @PostAuthorize("hasRole('USER')")
+    // TODO: secure for USER
     @GetMapping("message")
     public MessageDto getMessage() {
         return new MessageDto("This endpoint is accessible to User.");
