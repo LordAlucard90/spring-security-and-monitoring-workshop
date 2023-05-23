@@ -24,6 +24,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
     </properties>
 
     <dependencies>
@@ -52,6 +53,17 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
             <version>1.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
 
         <dependency>

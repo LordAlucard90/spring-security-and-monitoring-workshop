@@ -21,10 +21,28 @@ spring:
   flyway:
     enabled: true
 
+  # configuration for client and server
   security:
     user:
       name: user
       password: password
+
+  # configuration for client
+  boot:
+    admin:
+      client:
+        url: http://localhost:8085/monitoring
+        username: ${spring.security.user.name}
+        password: ${spring.security.user.password}
+        # configuration for client (data sent to the server to connect to client)
+        instance:
+          metadata:
+            user:
+              name: ${spring.security.user.name}
+              password: ${spring.security.user.password}
+        # configuration for server
+        routes:
+          endpoints: ${management.endpoints.web.exposure.include}
 
 flyway:
   user: ${spring.datasource.username}
@@ -34,11 +52,15 @@ flyway:
   location: classpath:db/migration
   validate-on-migrate: true
 
+# configuration for client
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
-      web:
-        exposure:
-          include:
+    web:
+      exposure:
+        include:
           - health
           - info
           - flyway
