@@ -33,3 +33,12 @@ flyway:
   schemas: PUBLIC
   location: classpath:db/migration
   validate-on-migrate: true
+
+
+# TODO: expose the following endpoints
+#   - health
+#   - info
+#   - flyway
+#   - env
+#   - metrics
+#   - beans
