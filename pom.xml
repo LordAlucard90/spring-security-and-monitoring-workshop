@@ -19,6 +19,7 @@
     <modules>
         <module>error-handling</module>
         <module>security-basic</module>
+        <module>monitoring</module>
     </modules>
 
     <properties>
