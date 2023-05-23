@@ -9,9 +9,9 @@ spring:
       client:
         registration:
           google:
-            client-id: 391813267434-q2ft77kuq9kimsdqash07468m2n4bg5b.apps.googleusercontent.com
-            client-secret: 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
-            scope: openid,profile,email
+            client-id: # TODO Add your client id
+            client-secret: # TODO Add your client secret
+            scope: # TODO Required scopes
       resourceserver:
         jwt:
           issuer-uri: https://accounts.google.com
