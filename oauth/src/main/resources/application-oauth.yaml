@@ -1,0 +1,18 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /oauth
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 391813267434-q2ft77kuq9kimsdqash07468m2n4bg5b.apps.googleusercontent.com
+            client-secret: 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
+            scope: openid,profile,email
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs

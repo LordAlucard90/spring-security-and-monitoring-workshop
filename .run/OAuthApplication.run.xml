@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="OAuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ACTIVE_PROFILES" value="oauth" />
+    <module name="oauth" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ch.ti8m.academy.oauth.OAuthApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="ch.ti8m.academy.oauth.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
