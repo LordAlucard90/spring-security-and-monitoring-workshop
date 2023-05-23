@@ -34,11 +34,8 @@ flyway:
   location: classpath:db/migration
   validate-on-migrate: true
 
-
-# TODO: expose the following endpoints
-#   - health
-#   - info
-#   - flyway
-#   - env
-#   - metrics
-#   - beans
+management:
+  endpoints:
+      web:
+        exposure:
+          include: health,info,flyway,env,metrics,beans
