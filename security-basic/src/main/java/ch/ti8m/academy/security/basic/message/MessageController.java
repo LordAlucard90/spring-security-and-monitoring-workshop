@@ -44,14 +44,14 @@ public class MessageController {
         return new MessageDto("This endpoint is accessible only to Admin.");
     }
 
-    @Secured("ROLE_STAFF")
+    @Secured({"ROLE_ADMIN", "ROLE_STAFF"})
     @PostMapping("message")
     public MessageDto createMessage(@RequestBody MessageDto messageDto) {
         log.info("Creation message={}", messageDto.getMessage());
         return new MessageDto("This endpoint is accessible to Staff.");
     }
 
-    @RolesAllowed("ROLE_STAFF")
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_STAFF"})
     @PutMapping("message")
     public MessageDto updateMessage(@RequestBody MessageDto messageDto) {
         log.info("Update message={}", messageDto.getMessage());
